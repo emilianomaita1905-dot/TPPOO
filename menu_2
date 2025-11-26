@@ -1,0 +1,31 @@
+import cls_peluqueros as pl
+lista_de_peluqueros = []
+def menu_2():
+    print("----------------- PELUQUEROS -----------------")
+    print("1.- Registrar peluquero")
+    print("2.- Ver peluqueros")
+    #print("3.- Desvincular peluquero")
+    #print("4.- Modificar datos")
+    print("0.- Atras")
+
+    while True:
+        try:
+            opcion = int(input("Seleccione una opcion: "))
+            if opcion == 1:
+                nuevo_pelu = pl.peluquero.registra_pelu()
+                nuevo_pelu.obj2list()
+                lista_de_peluqueros.append(nuevo_pelu)
+                pl.str2csv_pel()
+                print("¡Peluquero registrado correctamente!")
+            elif opcion == 2:
+                if not lista_de_peluqueros:
+                    print("No hay peluqueros registrados")
+                else:
+                    for pelu in lista_de_peluqueros:
+                        print(pelu)
+            elif opcion == 0:
+                return
+            else:
+                print("Opcion no valida")
+        except ValueError:
+            print("Solo se permiten numeros")
