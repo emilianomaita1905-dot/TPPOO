@@ -1,0 +1,71 @@
+import funciones as fs
+import menu_2 as m2
+import csv
+bd_pelu = [["nombre", "apellido", "DNI", "fechaing", "turno", "nro_legajo"]]
+
+#CLASE PELUQUEROS
+class peluquero(object):
+    def __init__(self, nombre, apellido, fechanac, DNI, fechaing, turno, nro_legajo):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.fechanac = fechanac
+        self.DNI = DNI
+        self.fechaing = fechaing
+        self.turno = turno
+        self.nro_legajo = nro_legajo
+    
+    def __str__(self):
+        return(f"----------------- Datos -----------------\n"
+               f"Nombre: {self.nombre}\n"
+               f"Apellido: {self.apellido}\n"
+               f"DNI: {self.DNI}\n"
+               f"Fecha de nacimiento: {self.fechanac}\n"
+               f"Fecha de ingreso: {self.fechaing}\n"
+               f"Turno: {self.turno}\n"
+               f"N° de legajo: {self.nro_legajo}")
+    
+    @classmethod
+    def registra_pelu(cls):
+        nombre = fs.validar_nombre()
+        apellido = fs.validar_apellido()
+        DNI = fs.validar_dni()
+        fechanac = fs.validar_fecha()
+        fechaing = fs.validar_fecha_ing()
+        turno = fs.validar_turno()
+        nro_legajo = (nombre[0:3]+apellido[0:1]+fechanac[0:2]+fechanac[3:5])
+        return cls(nombre, apellido, DNI, fechanac, fechaing, turno, nro_legajo)
+    
+    def obj2list(self):
+        return bd_pelu.append([self.nombre, self.apellido, self.DNI, self.fechanac, self.fechaing, self.turno, self.nro_legajo])
+    
+    @classmethod
+    def str2obj(cls):
+        lista = open("datos_peluqueros.csv", mode="r")
+        datos = lista.readlines()
+        i = 1
+        while i < len(datos):
+            vector = datos[i].split(",")
+            nombre = vector[0]
+            apellido = vector[1]
+            DNI = vector[2]
+            fechanac = vector[3]
+            fechaing = vector[4]
+            turno = vector[5]
+            nro_legajo = vector[6]
+            i = i + 1
+            m2.lista_de_peluqueros.append(cls(nombre, apellido, DNI, fechanac, fechaing, turno, nro_legajo))
+
+#FUNCIONES INDEPENDIENTES
+def list2str_pel():
+    datos = bd_pelu
+    i = 1
+    resultado = ""
+    while i < len(datos):
+        transformador = ",".join(datos[i])+"\n"
+        resultado += transformador
+        i = i + 1
+    return resultado
+
+def str2csv_pel():
+    with open("datos_peluqueros.csv", mode="a") as archivo:
+        archivo.write(list2str_pel())
