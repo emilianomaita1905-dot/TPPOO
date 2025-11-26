@@ -1,0 +1,20 @@
+import cls_turnos as tn
+
+def menu_5():
+    print("----------------- TURNOS -----------------")
+    print("1.- Ver turnos disponibles por fecha")
+    #print("2.- Ver turnos ocupados por fecha")
+    print("0.- Volver atras")
+    while True:
+        try:
+            opcion = int(input("Seleccione una opcion: "))
+            if opcion == 1:
+                for turn in tn.lista_disponibles:
+                    print(turn)
+            elif opcion == 0:
+                return
+            else:
+                print("Opcion no valida, introduzca un valor correcto")
+        except ValueError:
+            print("Solo se permiten numeros")
+        
