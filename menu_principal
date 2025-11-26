@@ -1,0 +1,66 @@
+import cls_clientes as cl
+import cls_peluqueros as pl
+import cls_agenda as ag
+import cls_turnos as tn
+import menu_1 as m1
+import menu_2 as m2
+import menu_3 as m3
+import menu_4 as m4
+import menu_5 as m5
+import csv
+import os
+os.system("cls")
+
+def menu_principal():
+    print("----------------------------SISTEMA DE TURNOS PELUQUERIA----------------------------")
+    print("1.- Clientes")
+    print("2.- Profesionales")
+    print("3.- Servicios")
+    print("4.- Agenda")
+    print("5.- Turnos")
+    print("6.- Agendar turno")
+    print("0.- Saliendo del sistema")
+    print("------------------------------------------------------------------------------------")
+    while True:
+        try:
+            opcion = int(input("Seleccione una opcion: "))
+            if opcion >= 0 and opcion <= 5:
+                return opcion
+        except ValueError:
+            print("Solo se permiten numeros")
+        else:
+            print("Opcion no valida, introduzca un valor correcto")
+        
+
+while True:
+    opcion_seleccionada = menu_principal()
+    
+    if opcion_seleccionada == 0:
+        print("Saliendo del sistema")
+        break
+    elif opcion_seleccionada == 1:
+        if not os.path.exists("datos_clientes.csv"):
+            with open("datos_clientes.csv", mode="w") as archivo:
+                archivo.write("nombre,apellido,telefono,correo,fechanac\n")
+        else:
+            cl.cliente.list2obj()
+            m1.menu_1()
+    elif opcion_seleccionada == 2:
+        if not os.path.exists("datos_peluqueros.csv"):
+            with open("datos_peluqueros.csv", mode="w") as archivo:
+                archivo.write("nombre,apellido,DNI,fechanac,fechaing,turno,nro_legajo\n")
+        else:
+            pl.peluquero.str2obj()
+            m2.menu_2()
+    elif opcion_seleccionada == 3:
+        m3.menu_3() 
+    elif opcion_seleccionada == 4:
+        if not os.path.exists("datos_agenda.csv"):
+            with open("datos_agenda.csv", mode="w") as archivo:
+                archivo.write("")
+        else:
+            ag.agenda.csv2obj()
+            m4.menu_4()
+    elif opcion_seleccionada == 5:
+            tn.turnos_disp.csv2obj()
+            m5.menu_5()
