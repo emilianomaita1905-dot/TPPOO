@@ -1,0 +1,29 @@
+
+#CLASE SERVICIOS
+class servicios(object):
+    def __init__(self, tipo, costo, duracion, nro_serv):
+        self.tipo = tipo
+        self.costo = costo
+        self.duracion = duracion
+        self.senia = int(costo * 0.25)
+        self.nro_serv = nro_serv
+    def __str__(self):
+        return(f"-------------------------------------------\n" 
+            f"Tipo de servicio: {self.tipo}\n"
+            f"Costo del servicio: {self.costo} $\n"
+            f"Duracion del servicio: {self.duracion} minutos\n"
+            f"Seña requerida: {self.senia} $\n"
+            f"Numero de servicio: {self.nro_serv}")
+    
+    def obj2list(self):
+        return ([self.tipo, self.costo, self.duracion, self.nro_serv])
+    
+corte = servicios("Corte de pelo", 10000, 40, 1)
+corte_barba = servicios("Corte y barba", 15000, 60, 2)
+corte_barba_lavado = servicios("Corte barba y lavado", 20000, 80, 3)
+tintura = servicios("Tintura", 30000, 120, 4)
+tra_capilar = servicios("Tratamiento capilar", 20000, 60, 5)
+corte_lavado = servicios("Corte y lavado", 15000, 60, 6)
+
+lista_servicios =[corte, corte_barba, corte_barba_lavado, tintura, tra_capilar, corte_lavado]
+lista_2 = [corte.obj2list(), corte_barba.obj2list(), corte_barba_lavado.obj2list(), tintura.obj2list(), tra_capilar.obj2list(), corte_lavado.obj2list()]
