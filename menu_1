@@ -1,0 +1,31 @@
+import cls_clientes as cl
+
+lista_de_clientes = []
+def menu_1():
+    print("----------------- CLIENTES -----------------")
+    print("1.- Registrar cliente")
+    print("2.- Mostrar clientes")
+    #print("3.- Modificar datos del cliente")
+    print("0.- Atras")
+    
+    while True:    
+        try:
+            opcion = int(input("Seleccione una opcion: "))
+            if opcion == 1:
+                nuevo_cliente1 = cl.cliente.registrar_cliente()
+                nuevo_cliente1.object2list()
+                lista_de_clientes.append(nuevo_cliente1)
+                cl.str2csv()
+                print("¡Cliente registrado exitosamente!")
+            elif opcion == 2:
+                if lista_de_clientes == []:
+                    print("No se han registrado clientes")
+                else:
+                    for nuevo_cliente in lista_de_clientes:
+                        print(nuevo_cliente)
+            elif opcion == 0:
+                return
+            else:
+                print("Opcion inexistente")
+        except ValueError:
+            print("Solo se permiten numeros")
