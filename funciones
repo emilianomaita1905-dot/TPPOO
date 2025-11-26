@@ -1,0 +1,121 @@
+from datetime import date, timedelta 
+
+def validar_nombre():
+    while True:
+        nombre = input("Nombre: ")
+        nombre = nombre.strip().replace(" ", "")
+        if len(nombre) == 0:
+            print("Debe introducir Nombre") 
+        elif nombre.isalpha():
+            return nombre.upper()
+        else:
+            print("Introduzca el Nombre correctamente")
+
+def validar_apellido():
+    while True:
+        nombre = input("Apellido: ")
+        nombre = nombre.strip().replace(" ", "")
+        if len(nombre) == 0:
+            print("Debe introducir Apellido") 
+        elif nombre.isalpha():
+            return nombre.upper()
+        else:
+            print("Introduzca el Apellido correctamente")
+
+def validar_telefono():
+    while True:
+        try:
+            telefono = int(input("Celular: "))
+            if len(str(telefono)) == 10:
+                return str(telefono)
+        except ValueError:
+            print("Formato incorrecto")
+        else:
+            print("Cantidad de digitos no valida")
+
+def validar_correo():
+    while True:
+            correo = input("Correo: ").lower()
+            correo = correo.strip().replace(" ","")
+            validar = [".com", ".es", ".outlook", ".icloud.com", ".yahoo.com" ]
+            if "@" in correo and any(extensiones in correo for extensiones in validar):#any = Vamos a llamar extension a cada str de la variable validar y quiero que busques si hay una extension en la variable correo y quiero que hagas esto con todas las extensiones de la variable validar
+                return correo
+            else:
+                print("El correo debe tener @ y extension de dominio")
+
+def validar_fecha():
+    print("Introduzca fecha de nacimiento")
+    while True:
+        try:
+            dia = int(input("Dia: "))
+            if dia >= 1 and dia <= 31:
+                mes = int(input("Mes: "))
+                if mes >= 1 and mes <= 12:
+                    anio = int(input("Año: "))
+                    if anio >= 1930 and anio <= 2025:
+                        return str(date(anio, mes, dia))
+        except ValueError:
+            print("Formato incorrecto")
+        else:
+            print("Valor incorrecto")
+
+def validar_fecha_ing():
+    print("Introduzca fecha de ingreso")
+    while True:
+        try:
+            dia = int(input("Dia: "))
+            if dia >= 1 and dia <= 31:
+                mes = int(input("Mes: "))
+                if mes >= 1 and mes <= 12:
+                    anio = int(input("Año: "))
+                    if anio >= 1930 and anio <= 2025:
+                        return str(date(anio, mes, dia))
+        except ValueError:
+            print("Formato incorrecto")
+        else:
+            print("Valor incorrecto")
+
+def validar_fecha_agenda():
+    print("Fecha de apertura de agenda")
+    while True:
+        try:
+            dia = int(input("Dia: "))
+            if dia >= 1 and dia <= 31:
+                mes = int(input("Mes: "))
+                if mes >= 1 and mes <= 12:
+                    anio = int(input("Año: "))
+                    if anio >= 1930 and anio <= 2025:
+                        return date(anio, mes, dia)
+        except ValueError:
+            print("Formato incorrecto")
+        else:
+            print("Valor incorrecto")
+
+def validar_dni():
+    print("Introduzca N° de documento")
+    while True:
+        try:
+           nrodoc = int(input("DNI: "))
+           if len(str(nrodoc)) == 8:
+               print("DNI cargado correctamente")
+               return str(nrodoc)
+           else:
+               print("Cantidad de digitos no valida")
+        except ValueError:
+            print("Solo se permiten numeros")
+
+def validar_turno():
+    print(f"Asignar turno\n"
+    f"AM: 09:00 / 15:00\n"
+    f"PM: 15:00 / 21:00")
+    AM = "09:00 / 15:00"
+    PM = "15:00 / 21:00"
+    while True:
+        turno = input("Turno asignado: ").strip().upper()
+        if turno == "AM":
+            return AM
+        elif turno == "PM":
+            return PM
+        else:
+            print("Introduzca el turno correctamente")
+
