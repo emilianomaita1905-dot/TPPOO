@@ -1,0 +1,87 @@
+"""
+import cls_agenda as ag
+import cls_servicios as sv
+
+#CLASE TURNOS COMPARTIDOS
+class turnos_ocupados(object):
+    def __init__(self, fecha, servicio, monto, duracion, hrturno, nro_legajo, cliente, estado):
+        self.nro_legajo = nro_legajo
+        self.cliente = cliente
+        self.fecha = fecha
+        self.hrturno = hrturno
+        self.servicio = servicio
+        self.monto = monto
+        self.estado = estado
+        self.duracion = duracion
+    
+    @classmethod
+    def dar_turno(cls):
+        fecha = fechas_turnos()
+        servicio = servicios()[0]
+        monto = servicio[1]
+        duracion = servicio[2]
+        hrturno = input("")
+        nro_legajo = input("")
+        cliente = input("")
+        estado = input("")
+        cls(fecha, servicio, monto, duracion, hrturno, nro_legajo, cliente, estado)
+
+
+#FUNCIONES DE VALIDACION
+
+def fechas_turnos():
+    ag.agenda.csv2obj()
+    for fechas in ag.lista_objeto:
+        print(fechas)
+        datos = open("datos_agenda.csv", mode="r")
+        lectura = datos.readlines()
+    while True:
+        opcion = int(input("Indique numero de indice: "))
+        try:
+            if opcion >= 1 and opcion <= 15:
+                return lectura[opcion - 1]
+            else:
+                print("Valor incorrecto")
+        except ValueError:
+            print("Solo se permiten numeros")
+
+def servicios():
+    print("---------------------- SERVICIOS ----------------------")
+    for serv in sv.lista_servicios:
+        print(serv)
+    datos = sv.lista_2
+    while True:
+        try:
+            opcion = int(input("Seleccione por numero de servicio: "))
+            if opcion >= 1 and opcion <=6:
+                return datos[opcion-1]
+            else:
+                print("Opcion no valida")
+        except ValueError:
+            print("Solo se permiten numeros")
+
+
+
+def hora_turno():
+    fecha = turnos_ocupados.dar_turno(fecha)
+    datos = open("datos_turnos.csv", mode="r")
+    lectura = datos.readlines()
+    turnos = []
+    i = 0
+    while i < len(lectura):
+        dat = lectura[i].split(",")
+        if dat[0] == fecha:
+            turnos.append(dat)
+        i = i + 1
+    return turnos
+
+
+
+datos = open("datos_turnos.csv", mode="r")
+lectura = datos.readlines()
+#print(lectura[0].split(",")[0])
+
+hora_turno()
+
+
+"""
