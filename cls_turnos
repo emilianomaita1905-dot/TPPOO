@@ -1,0 +1,95 @@
+from datetime import date
+import cls_agenda as ag
+import os
+
+lista_ocupados = []
+lista_disponibles = []
+bd_turnos = [["fecha", "hrturno", "estado"] ]
+
+#CLASE TURNOS DISPONIBLES
+class turnos_disp(object):
+    def __init__(self, fecha, hrturno, estado):
+        self.fecha = fecha
+        self.hrturno = hrturno
+        self.estado = estado
+    
+    @classmethod
+    def crear_turnos(cls, fecha):
+        fecha = fecha
+        turno_1 = turnos_disp(fecha, "9:00", "Disponible")
+        turno_2 = turnos_disp(fecha, "9:40", "Disponible")
+        turno_3 = turnos_disp(fecha, "10:20", "Disponible")
+        turno_4 = turnos_disp(fecha, "11:00", "Disponible")
+        turno_5 = turnos_disp(fecha, "11:40", "Disponible")
+        turno_6 = turnos_disp(fecha, "12:20", "Disponible")
+        turno_7 = turnos_disp(fecha, "13:00", "Disponible")
+        turno_8 = turnos_disp(fecha, "13:40", "Disponible")
+        turno_9 = turnos_disp(fecha, "14:20", "Disponible")
+        turno_10 = turnos_disp(fecha, "15:00", "Disponible")
+        lista_disponibles.extend([turno_1, turno_2, turno_3, turno_4, turno_5, turno_6, turno_7, turno_8, turno_9, turno_10])
+        return bd_turnos.extend([turno_1.obj2list(), turno_2.obj2list(), turno_3.obj2list(), turno_4.obj2list(), turno_5.obj2list(), turno_6.obj2list(), turno_7.obj2list(), turno_8.obj2list(), turno_9.obj2list(), turno_10.obj2list()])
+
+    @classmethod
+    def csv2obj(cls):
+        if os.path.exists("datos_turnos.csv"):
+            if os.path.getsize("datos_turnos.csv") > 0:
+                datos = open("datos_turnos.csv", mode="r")
+                lectura = datos.readlines()
+                i = 0
+                while i < len(lectura):
+                    dat = lectura[i].split(",")
+                    fecha = dat[0]
+                    hrturno = dat[1]
+                    estado = dat[2]
+                    i = i + 1
+                    lista_disponibles.append(cls(fecha, hrturno, estado))
+            else:
+                return
+        else:
+            return
+    
+    def obj2list(self):
+        return ([self.fecha, self.hrturno, self.estado])
+
+    def __str__(self):
+        return(f"---------------- Turnos del dia ------------------\n"
+               f"Fecha: {self.fecha}\n"
+               f"Horario: {self.hrturno}\n"
+               f"Estado: {self.estado}\n")
+#FUNCIONES INDEPENDIENTES
+def list2str():
+    datos = bd_turnos
+    i = 1
+    resultado = ""
+    while i < len(datos):
+        transformador = ",".join(datos[i])+"\n"
+        resultado += transformador
+        i = i + 1
+    return resultado
+    
+def str2csv():
+    if not os.path.exists("datos_turnos.csv"):
+        with open("datos_turnos.csv", mode="w") as archivo:
+            archivo.write(list2str())
+    else:
+        with open("datos_turnos.csv", mode="a") as archivo:
+            archivo.write(list2str())
+
+
+def turnoxdia():
+    datos = ag.lista_agenda[0]
+    turnos_disp.crear_turnos(datos[0])
+    turnos_disp.crear_turnos(datos[1])
+    turnos_disp.crear_turnos(datos[2])
+    turnos_disp.crear_turnos(datos[3])
+    turnos_disp.crear_turnos(datos[4])
+    turnos_disp.crear_turnos(datos[5])
+    turnos_disp.crear_turnos(datos[6])
+    turnos_disp.crear_turnos(datos[7])
+    turnos_disp.crear_turnos(datos[8])
+    turnos_disp.crear_turnos(datos[9])
+    turnos_disp.crear_turnos(datos[10])
+    turnos_disp.crear_turnos(datos[11])
+    turnos_disp.crear_turnos(datos[12])
+    turnos_disp.crear_turnos(datos[13])
+    turnos_disp.crear_turnos(datos[14])
