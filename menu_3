@@ -1,0 +1,19 @@
+import cls_servicios as se
+
+def menu_3():
+    print("----------------- SERVICIOS -----------------")
+    print("1.- Mostrar servicios")
+    print("0.- Volver atras")
+    while True:
+        try:
+            opcion = int(input("Seleccione una opcion: "))
+            if opcion == 1:
+                for ser in se.lista_servicios:
+                    print(ser)
+            elif opcion == 0:
+                return
+            else:
+                print("Opcion no valida, introduzca un valor correcto")
+        except ValueError:
+            print("Solo se permiten numeros")
+        
