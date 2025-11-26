@@ -1,0 +1,78 @@
+from datetime import date, timedelta
+import funciones as fs
+import csv
+import os 
+lista_agenda = []
+lista_objeto = []
+#CLASE AGENDA 
+class agenda(object):
+    def __init__(self, fecha_inicio, fecha_fin, intervalo):
+        self.fecha_inicio = fecha_inicio
+        self.fecha_fin = fecha_fin
+        self.intervalo = intervalo
+    
+    @classmethod
+    def abrir_agenda_14d(cls):
+        fecha_inicio = fs.validar_fecha_agenda()
+        fecha_fin = fecha_inicio + timedelta(days=14)
+        i = timedelta(days = 1)
+        intervalo = ""
+        while fecha_inicio <= fecha_fin:
+            intervalo += fecha_inicio.strftime("%A %d de %B del %Y")+"!"
+            fecha_inicio = fecha_inicio + i
+        intervalo = intervalo.split("!") 
+        return cls(fecha_inicio, fecha_fin, intervalo)
+    
+    def obj2list(self):
+        return lista_agenda.append(self.intervalo)
+
+    @classmethod
+    def csv2obj(cls):
+        if os.path.getsize("datos_agenda.csv") > 0:
+            datos = open("datos_agenda.csv", mode="r")
+            lectura = datos.readlines()
+            fecha_inicio = lectura[0]
+            fecha_fin = lectura[14]
+            intervalo = lectura[0:15]
+            nuevo_intervalo = []
+            for fechas in intervalo:
+                fecha1 = fechas.replace("\n","")
+                nuevo_intervalo.append(fecha1)
+            intervalo = nuevo_intervalo
+            lista_objeto.append(cls(fecha_inicio, fecha_fin, intervalo))
+        else:
+            return
+        
+    def __str__(self):
+        return (f"----------------- Fechas -----------------\n"
+        f"1. - {self.intervalo[0]}\n"
+        f"2. - {self.intervalo[1]}\n"
+        f"3. - {self.intervalo[2]}\n"
+        f"4. - {self.intervalo[3]}\n"
+        f"5. - {self.intervalo[4]}\n"
+        f"6. - {self.intervalo[5]}\n"
+        f"7. - {self.intervalo[6]}\n"
+        f"8. - {self.intervalo[7]}\n"
+        f"9. - {self.intervalo[8]}\n"
+        f"10.- {self.intervalo[9]}\n"
+        f"11.- {self.intervalo[10]}\n"
+        f"12.- {self.intervalo[11]}\n"
+        f"13.- {self.intervalo[12]}\n"
+        f"14.- {self.intervalo[13]}\n"
+        f"15.- {self.intervalo[14]}")
+
+#FUNCIONES INDEPENDIENTES   
+def list2str():
+    datos = lista_agenda[0]
+    i = 0
+    resultado = ""
+    while i < len(datos):
+        transformador = (datos[i])+"\n"
+        resultado += transformador
+        i = i + 1
+    return resultado
+
+def str2csv():
+    with open("datos_agenda.csv", mode="a") as archivo:
+        archivo.write(list2str())
+
