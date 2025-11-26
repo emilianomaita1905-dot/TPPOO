@@ -1,0 +1,89 @@
+import funciones as fs
+import menu_1 as m1
+import csv
+
+bd_datos = [["nombre", "apellido", "telefono", "correo", "fechanac"]]
+#CLASE CLIENTE
+class cliente(object):
+    def __init__(self, nombre, apellido, telefono, correo, fechanac):
+        self.nombre = nombre
+        self.apellido = apellido
+        self.telefono = telefono
+        self.correo = correo
+        self.fechanac = fechanac
+
+    def __str__ (self):
+        return("----------------- Datos del cliente -----------------\n"
+        f"Nombre: {self.nombre}\n"
+        f"Apellido: {self.apellido}\n"
+        f"Telefono: {self.telefono}\n"
+        f"Correo: {self.correo}\n"
+        f"Fecha de nacimiento: {self.fechanac}\n")
+
+    @classmethod
+    def registrar_cliente(cls):
+        print("----------------- Registrar cliente -----------------")
+        nombre = fs.validar_nombre()
+        apellido = fs.validar_apellido()
+        telefono = fs.validar_telefono()
+        correo = fs.validar_correo()
+        fechanac = fs.validar_fecha()
+        return cls(nombre, apellido, telefono, correo, fechanac) 
+    
+    def object2list(self):
+        return bd_datos.append([self.nombre, self.apellido, self.telefono, self.correo, self.fechanac])
+    """
+    def modificar_datos(self):
+        print("----------------- Modificar datos -----------------\n" \
+        "1.- Nombre\n" \
+        "2.- Apellido\n" \
+        "3.- Telefono\n" \
+        "4.- Correo\n" \
+        "5.- Fecha de nacimiento")
+        while True:
+            opcion = int(input("Seleccione dato a modificar: "))
+            try:
+                if opcion == 1:
+                    self.nombre = fs.validar_nombre()
+                elif opcion == 2:
+                    self.apellido = fs.validar_apellido()
+                elif opcion == 3:
+                    self.telefono = fs.validar_telefono()
+                elif opcion == 4:
+                    self.correo = fs.validar_correo()
+                elif opcion == 5:
+                    self.fechanac == fs.validar_fecha()
+                else:
+                    print("Opcion no valida")
+            except ValueError:
+                print("Formato incorrecto")
+    """
+    @classmethod            
+    def list2obj(cls):
+        lista = open("datos_clientes.csv", mode="r")
+        datos = lista.readlines()
+        i = 1
+        while i < len(datos):
+            dat = datos[i].split(",")
+            nombre = dat[0]
+            apellido = dat[1]
+            telefono = dat[2]
+            correo = dat[3]
+            fechanac = dat[4]
+            i = i + 1
+            m1.lista_de_clientes.append(cls(nombre, apellido, telefono, correo, fechanac))
+
+#FUNCIONES INDEPENDIENTES
+def list2str():
+    datos = bd_datos
+    i = 1
+    resultado = ""
+    while i < len(datos):
+        transformador = ",".join(datos[i])+"\n"
+        resultado += transformador
+        i = i + 1
+    return resultado
+
+def str2csv():
+    with open("datos_clientes.csv", mode="a") as archivo:
+        archivo.write(list2str())
